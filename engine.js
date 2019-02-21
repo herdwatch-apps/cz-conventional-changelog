@@ -55,33 +55,18 @@ module.exports = function (options) {
           message: 'Select the type of change that you\'re committing:',
           choices: choices,
           default: options.defaultType
-        }, {
+        }, 
+        {
+          type: 'input',
+          name: 'issue',
+          message: 'What is the scope of this change (e.g. component or file name)? (press enter to skip)\n',
+          default: options.defaultScope
+        },
+        {
           type: 'input',
           name: 'scope',
           message: 'What is the scope of this change (e.g. component or file name)? (press enter to skip)\n',
           default: options.defaultScope
-        }, {
-          type: 'input',
-          name: 'subject',
-          message: 'Write a short, imperative tense description of the change:\n',
-          default: options.defaultSubject
-        }, {
-          type: 'input',
-          name: 'body',
-          message: 'Provide a longer description of the change: (press enter to skip)\n',
-          default: options.defaultBody
-        }, {
-          type: 'confirm',
-          name: 'isBreaking',
-          message: 'Are there any breaking changes?',
-          default: false
-        }, {
-          type: 'input',
-          name: 'breaking',
-          message: 'Describe the breaking changes:\n',
-          when: function(answers) {
-            return answers.isBreaking;
-          }
         }, {
           type: 'confirm',
           name: 'isIssueAffected',
