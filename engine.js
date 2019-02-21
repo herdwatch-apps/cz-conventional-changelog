@@ -58,8 +58,8 @@ module.exports = function (options) {
         }, 
         {
           type: 'input',
-          name: 'issue',
-          message: 'What is the scope of this change (e.g. component or file name)? (press enter to skip)\n',
+          name: 'subject',
+          message: 'What is the issue number?\n',
           default: options.defaultScope
         },
         {
