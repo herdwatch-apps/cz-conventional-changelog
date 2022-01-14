@@ -17,6 +17,7 @@ var filter = function(array) {
 module.exports = function (options) {
 
   var types = options.types;
+  var testJobs = options.testJobs;
 
   var length = longest(Object.keys(types)).length + 1;
   var choices = map(types, function (type, key) {
@@ -55,7 +56,7 @@ module.exports = function (options) {
           message: 'Select the type of change that you\'re committing:',
           choices: choices,
           default: options.defaultType
-        }, 
+        },
         {
           type: 'input',
           name: 'subject',
@@ -67,7 +68,15 @@ module.exports = function (options) {
           name: 'scope',
           message: 'What is the issue number?\n',
           default: options.defaultScope
-        }, {
+        },
+        {
+          type: 'list',
+          name: 'testJob',
+          message: 'Select the type of test job:',
+          choices: testJobs,
+          default: ''
+        },
+        {
           type: 'confirm',
           name: 'isIssueAffected',
           message: 'Does this change affect any open issues?',
@@ -96,8 +105,12 @@ module.exports = function (options) {
         var scope = answers.scope.trim();
         scope = scope ? '(' + answers.scope.trim() + ')' : '';
 
+        // add test job case
+        var testJob = answers.testJob;
+        testJob = testJob ? ' - ' + testJob : '';
+
         // Hard limit this line
-        var head = (answers.type + scope + ': ' + answers.subject.trim()).slice(0, maxLineWidth);
+        var head = (answers.type + scope + testJob + ': ' + answers.subject.trim()).slice(0, maxLineWidth);
 
         // Wrap these lines at 100 characters
         var body = wrap(answers.body, wrapOptions);
